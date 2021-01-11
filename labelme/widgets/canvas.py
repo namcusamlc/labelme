@@ -447,11 +447,27 @@ class Canvas(QtWidgets.QWidget):
         self.selectionChanged.emit(shapes)
         self.update()
 
+    def calculatePointDistance(self, shape, point):
+        p = shape.points[0]
+        return (p.x() - point.x()) ** 2 + (p.y() - point.y()) ** 2
+
     def selectShapePoint(self, point, multiple_selection_mode):
         """Select the first shape created which contains this point."""
         if self.selectedVertex():  # A vertex is marked for selection.
             index, shape = self.hVertex, self.hShape
             shape.highlightVertex(index, shape.MOVE_VERTEX)
+            closestShape = None
+            for shape in reversed(self.shapes):
+                if shape.shape_type != "point":
+                    continue
+                if self.isVisible(shape):
+                    if closestShape is None:
+                        closestShape = shape
+                    elif self.calculatePointDistance(shape, point) < self.calculatePointDistance(closestShape, point):
+                        closestShape = shape
+            if closestShape is not None:
+                self.selectionChanged.emit([closestShape])
+                return
         else:
             for shape in reversed(self.shapes):
                 if self.isVisible(shape) and shape.containsPoint(point):

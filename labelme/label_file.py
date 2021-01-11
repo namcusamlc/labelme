@@ -76,6 +76,8 @@ class LabelFile(object):
             "flags",  # image level flags
             "imageHeight",
             "imageWidth",
+            "objectNum",
+            "objectInfo"
         ]
         shape_keys = [
             "label",

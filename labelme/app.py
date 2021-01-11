@@ -633,20 +633,20 @@ class MainWindow(QtWidgets.QMainWindow):
             ),
             # menu shown at right click
             menu=(
-                createMode,
-                createRectangleMode,
-                createCircleMode,
-                createLineMode,
-                createPointMode,
-                createLineStripMode,
-                editMode,
-                edit,
-                copy,
-                delete,
-                undo,
-                undoLastPoint,
-                addPointToEdge,
-                removePoint,
+                # createMode,
+                # createRectangleMode,
+                # createCircleMode,
+                # createLineMode,
+                # createPointMode,
+                # createLineStripMode,
+                # editMode,
+                # edit,
+                # copy,
+                # delete,
+                # undo,
+                # undoLastPoint,
+                # addPointToEdge,
+                # removePoint,
             ),
             onLoadActive=(
                 close,
@@ -1372,11 +1372,16 @@ class MainWindow(QtWidgets.QMainWindow):
             text = items[0].data(Qt.UserRole)
         flags = {}
         group_id = groups[0].data(Qt.UserRole) if groups else None
-        if self._config["display_label_popup"] or not text:
-            previous_text = self.labelDialog.edit.text()
-            text, flags, group_id = self.labelDialog.popUp(text, group_id=group_id)
-            if not text:
-                self.labelDialog.edit.setText(previous_text)
+
+        if text is None or group_id is None:
+            self.errorMessage(self.tr("Invalid Label or Object"), self.tr("You have to select a Label and a Object"))
+            text = ""
+        else:
+            if self._config["display_label_popup"] or not text:
+                previous_text = self.labelDialog.edit.text()
+                text, flags, group_id = self.labelDialog.popUp(text, group_id=group_id)
+                if not text:
+                    self.labelDialog.edit.setText(previous_text)
 
         if text and not self.validateLabel(text):
             self.errorMessage(
