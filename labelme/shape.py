@@ -1,6 +1,7 @@
 import copy
 import math
 
+from PyQt5.QtGui import QFont
 from qtpy import QtCore
 from qtpy import QtGui
 
@@ -140,7 +141,7 @@ class Shape(object):
 
             line_path = QtGui.QPainterPath()
             vrtx_path = QtGui.QPainterPath()
-
+            # vrtx_path.addText()
             if self.shape_type == "rectangle":
                 assert len(self.points) in [1, 2]
                 if len(self.points) == 2:
@@ -166,10 +167,12 @@ class Shape(object):
                 # for the 1st vertex, and make it non-filled, which
                 # may be desirable.
                 # self.drawVertex(vrtx_path, 0)
-
                 for i, p in enumerate(self.points):
                     line_path.lineTo(p)
                     self.drawVertex(vrtx_path, i)
+
+                    if self.shape_type == "point":
+                        vrtx_path.addText(p, QFont(), f"{self.group_id}-{self.label}")
                 if self.isClosed():
                     line_path.lineTo(self.points[0])
 
