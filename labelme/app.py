@@ -1393,8 +1393,8 @@ class MainWindow(QtWidgets.QMainWindow):
             text = ""
         if text:
             self.labelList.clearSelection()
-            shape = self.canvas.setLastLabel(text, flags)
-            shape.group_id = group_id
+            shape = self.canvas.setLastLabel(text, flags, group_id=group_id)
+            # shape.group_id = group_id
             self.addLabel(shape)
             self.actions.editMode.setEnabled(True)
             self.actions.undoLastPoint.setEnabled(False)
