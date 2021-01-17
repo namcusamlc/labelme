@@ -1,0 +1,5 @@
+pip install .
+pip install pyinstaller
+pyinstaller labelme.spec
+
+The executable file will be outputted at dist/labelme.exe

@@ -36,6 +36,9 @@ def get_install_requires():
         "PyYAML",
         "qtpy",
         "termcolor",
+        "imageio==2.9.0",
+        "imageio-ffmpeg==0.4.3",
+        "tqdm==4.55.2",
     ]
 
     # Find python binding for qt with priority:

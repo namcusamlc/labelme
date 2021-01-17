@@ -5,10 +5,15 @@ import json
 import math
 import os
 import os.path as osp
+here = osp.dirname(osp.abspath(__file__))
+ffmpeg_dir = osp.join(here, "ffmpeg/ffmpeg.exe")
+os.environ["IMAGEIO_FFMPEG_EXE"] = ffmpeg_dir
+
 import re
 import webbrowser
 import imageio
 import tqdm
+import os
 
 import imgviz
 from qtpy import QtCore
